@@ -177,6 +177,6 @@ Todo prompt do usuário é registrado aqui, na ordem cronológica.
 
 ### Commits
 - `b724753` feat: add git and report tools
-- _hash do commit de docs preenchido no próximo commit_
+- `0c48da0` docs: mark T3 done and register prompt 006
 
 ---
