@@ -202,6 +202,6 @@ Todo prompt do usuário é registrado aqui, na ordem cronológica.
 
 ### Commits
 - `dbb057a` feat: add graph state and llm factory
-- _hash do commit de docs preenchido no próximo commit_
+- `acd843b` docs: mark T4 done and register prompt 007
 
 ---
