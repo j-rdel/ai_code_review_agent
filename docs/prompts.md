@@ -96,6 +96,6 @@ Todo prompt do usuário é registrado aqui, na ordem cronológica.
 
 ### Commits
 - `b84c841` docs: add architecture, prompts registry and tasks roadmap
-- _hash do backfill preenchido no próximo commit_
+- `343d414` docs: backfill commit hashes in prompts registry
 
 ---
