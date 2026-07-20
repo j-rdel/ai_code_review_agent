@@ -7,14 +7,14 @@ Fonte: [architecture.md § 8](./architecture.md#8-roadmap-de-implementação-ord
 
 ---
 
-## T1 — `chore: bootstrap uv project`
-- [ ] Inicializar projeto com `uv init`
-- [ ] Configurar `pyproject.toml` (nome, Python 3.12+, entrypoint `review`)
-- [ ] Adicionar dependências: `langgraph`, `langchain-ollama`, `pydantic`, `typer`
-- [ ] Adicionar dev deps: `pytest`, `pytest-mock`
-- [ ] Criar `.gitignore` (Python, `reports/`, `.venv`, caches)
-- [ ] Criar `.python-version`
-- [ ] Rodar `uv sync` e verificar `uv.lock`
+## T1 — `chore: bootstrap uv project` ✅
+- [x] Inicializar projeto com `uv init`
+- [x] Configurar `pyproject.toml` (nome, Python 3.12+, entrypoint `review`)
+- [x] Adicionar dependências: `langgraph`, `langchain-ollama`, `pydantic`, `typer`
+- [x] Adicionar dev deps: `pytest`, `pytest-mock`
+- [x] Criar `.gitignore` (Python, `reports/`, `.venv`, caches)
+- [x] Criar `.python-version`
+- [x] Rodar `uv sync` e verificar `uv.lock`
 
 ## T2 — `feat: add pydantic schemas for review output`
 - [ ] Criar `src/ai_code_review_agent/models.py`

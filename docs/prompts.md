@@ -99,3 +99,27 @@ Todo prompt do usuário é registrado aqui, na ordem cronológica.
 - `343d414` docs: backfill commit hashes in prompts registry
 
 ---
+
+## 004 — Implementar T1 (bootstrap uv)
+
+**Data:** 2026-07-20
+
+**Prompt:**
+> Implemente T1 de @docs/tasks.md
+
+### Implementação
+- `uv init --package --name ai-code-review-agent --python 3.12` (gerou `pyproject.toml`, `.python-version`, `src/ai_code_review_agent/`, `README.md`)
+- Adicionadas deps de runtime: `langgraph`, `langchain-ollama`, `pydantic`, `typer`
+- Adicionadas deps de dev: `pytest`, `pytest-mock` (via `uv add --dev`)
+- Ajustado `pyproject.toml`: descrição real do projeto e entrypoint `review = "ai_code_review_agent.cli:app"` (módulo será criado em T7)
+- `src/ai_code_review_agent/__init__.py` reduzido a `__version__` (removido `main()` placeholder do `uv init`)
+- Criado `.gitignore` (Python, `.venv`, caches, `reports/`)
+- `.python-version` = `3.12` (gerado pelo `uv init`)
+- `uv sync` executado; `uv.lock` gerado; smoke-test de imports OK
+- T1 marcada como `[x]` em `docs/tasks.md`
+
+### Commits
+- `ee3e7c4` chore: bootstrap uv project
+- _hash do commit de docs preenchido no próximo commit_
+
+---
