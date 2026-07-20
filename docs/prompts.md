@@ -205,3 +205,32 @@ Todo prompt do usuário é registrado aqui, na ordem cronológica.
 - `acd843b` docs: mark T4 done and register prompt 007
 
 ---
+
+## 008 — Implementar T5 (nós do grafo)
+
+**Data:** 2026-07-20
+
+**Prompt:**
+> implemente t5
+
+### Implementação
+- Criados os 5 nós em `src/ai_code_review_agent/nodes/`:
+  - `detect_changes` — chama `list_changed_python_files` + `get_repo_name`; devolve `{changed_files, repo_name}`
+  - `load_files` — mapeia `read_file_at_ref` sobre `changed_files`; devolve `{file_contents}`
+  - `review_file` — worker do fan-out. Recebe `{"file_path", "content"}` (o `Send` de T6 injeta). Constrói `structured = get_llm().with_structured_output(FileReview)`, formata `FILE_REVIEW_PROMPT` e invoca. **Força `review.file_path = file_path`** para bloquear alucinação do modelo. Devolve `{"file_reviews": [review]}` — merge no state via reducer `operator.add`.
+  - `aggregate_summary` — serializa `file_reviews` para JSON e envia via `AGGREGATE_PROMPT` para `RepoSummary`
+  - `generate_report` — chama `render_markdown` + `write_report`; lê `state["output_dir"]` com fallback para `settings.default_output_dir`
+- **Ajuste em `state.py`** (T4 touchup): adicionado `output_dir: str` como input opcional para o CLI (T7) injetar por invocação, mantendo consistência com o padrão dos outros inputs
+- **`nodes/__init__.py` intencionalmente vazio**: uma primeira versão fazia `from ai_code_review_agent.nodes.review_file import review_file`, mas isso reatribui o atributo `review_file` do pacote (que apontava para o submódulo) para a função, quebrando `import ai_code_review_agent.nodes.review_file as module` (o CPython usa `IMPORT_FROM` que resolve pelo atributo). Solução: sem re-exports; consumidores importam do submódulo diretamente
+- Testes em `tests/test_nodes.py`:
+  - `detect_changes` e `load_files` — usam repositórios git reais em `tmp_path` (sem mock)
+  - `review_file` — mocka `get_llm()` retornando `MagicMock` cujo `.with_structured_output(FileReview).invoke(...)` retorna um `FileReview`; valida (1) que schema correto é solicitado, (2) que `file_path` é sobrescrito mesmo quando o LLM devolve outro nome, (3) que as mensagens formatadas contêm `file_path` e `content`
+  - `aggregate_summary` — mocka LLM; valida que `RepoSummary` é o schema pedido e que a human message carrega JSON parseável dos reviews
+  - `generate_report` — sem LLM; escreve no `tmp_path` e valida saída + fallback para settings
+- `uv run pytest -v` → **55/55 verde**
+
+### Commits
+- `f4fba63` feat: add nodes
+- _hash do commit de docs preenchido no próximo commit_
+
+---

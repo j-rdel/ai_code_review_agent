@@ -42,14 +42,15 @@ Fonte: [architecture.md § 8](./architecture.md#8-roadmap-de-implementação-ord
   - [x] `FILE_REVIEW_PROMPT`
   - [x] `AGGREGATE_PROMPT`
 
-## T5 — `feat: add nodes`
-- [ ] `nodes/__init__.py`
-- [ ] `nodes/detect_changes.py` — usa `git_tools.list_changed_python_files`
-- [ ] `nodes/load_files.py` — usa `git_tools.read_file_at_ref`
-- [ ] `nodes/review_file.py` — LLM + `.with_structured_output(FileReview)`
-- [ ] `nodes/aggregate_summary.py` — LLM + `.with_structured_output(RepoSummary)`
-- [ ] `nodes/generate_report.py` — usa `report_writer`
-- [ ] `tests/test_nodes.py` com LLM mockado
+## T5 — `feat: add nodes` ✅
+- [x] `nodes/__init__.py` (vazio — evita colisão entre nome de submódulo e função re-exportada)
+- [x] `nodes/detect_changes.py` — usa `git_tools.list_changed_python_files` + `get_repo_name`
+- [x] `nodes/load_files.py` — usa `git_tools.read_file_at_ref`
+- [x] `nodes/review_file.py` — LLM + `.with_structured_output(FileReview)`, força `file_path` correto (anti-hallucination)
+- [x] `nodes/aggregate_summary.py` — LLM + `.with_structured_output(RepoSummary)`
+- [x] `nodes/generate_report.py` — usa `report_writer`, lê `output_dir` do state com fallback para `settings.default_output_dir`
+- [x] `tests/test_nodes.py` cobrindo os 5 nós (git real nos determinísticos, LLM mockado nos LLM)
+- Ajuste em `state.py`: adicionado campo opcional `output_dir` (input do CLI em T7)
 
 ## T6 — `feat: wire langgraph flow`
 - [ ] `src/ai_code_review_agent/graph.py`
