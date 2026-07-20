@@ -34,13 +34,13 @@ Fonte: [architecture.md § 8](./architecture.md#8-roadmap-de-implementação-ord
   - [x] `write_report(markdown, repo_name, out_dir)`
 - [x] `tests/test_git_tools.py` e `tests/test_report_writer.py`
 
-## T4 — `feat: add graph state and llm factory`
-- [ ] `src/ai_code_review_agent/config.py` — settings (modelo, host Ollama, defaults)
-- [ ] `src/ai_code_review_agent/state.py` — `GraphState` (TypedDict + reducers)
-- [ ] `src/ai_code_review_agent/llm.py` — factory `get_llm()` com `ChatOllama`
-- [ ] `src/ai_code_review_agent/prompts.py` — templates com prefixo `/no_think`
-  - [ ] `FILE_REVIEW_PROMPT`
-  - [ ] `AGGREGATE_PROMPT`
+## T4 — `feat: add graph state and llm factory` ✅
+- [x] `src/ai_code_review_agent/config.py` — settings (modelo, host Ollama, defaults)
+- [x] `src/ai_code_review_agent/state.py` — `GraphState` (TypedDict + reducers)
+- [x] `src/ai_code_review_agent/llm.py` — factory `get_llm()` com `ChatOllama`
+- [x] `src/ai_code_review_agent/prompts.py` — templates com prefixo `/no_think`
+  - [x] `FILE_REVIEW_PROMPT`
+  - [x] `AGGREGATE_PROMPT`
 
 ## T5 — `feat: add nodes`
 - [ ] `nodes/__init__.py`

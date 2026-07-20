@@ -180,3 +180,28 @@ Todo prompt do usuário é registrado aqui, na ordem cronológica.
 - `0c48da0` docs: mark T3 done and register prompt 006
 
 ---
+
+## 007 — Implementar T4 (state, config, llm, prompts)
+
+**Data:** 2026-07-20
+
+**Prompt:**
+> implemente t4
+
+### Implementação
+- `config.py`: `Settings` (dataclass frozen) com defaults do arquitetura (`qwen3:8b`, `http://localhost:11434`, temp `0.2`, refs default e output dir); `load_settings()` lê `OLLAMA_MODEL`/`OLLAMA_HOST`/`OLLAMA_TEMPERATURE` do ambiente; instância `settings` de módulo.
+- `state.py`: `GraphState(TypedDict, total=False)` com todos os campos da arquitetura + `repo_name` (usado por `generate_report`); `file_reviews` anotado com `Annotated[list[FileReview], operator.add]` para fan-in seguro dos `Send`s paralelos.
+- `llm.py`: `get_llm(temperature=None)` retorna `ChatOllama` configurado a partir de `settings`; `temperature` argumento sobrepõe o default.
+- `prompts.py`: `FILE_REVIEW_PROMPT` e `AGGREGATE_PROMPT` como `ChatPromptTemplate` (system + human). Ambos os systems começam com `/no_think` para desligar CoT do Qwen3.
+- Testes:
+  - `test_config.py`: defaults e override via env
+  - `test_state.py`: `total=False`, chaves esperadas, e — mais importante — smoke real com `StateGraph` compilado que fanea dois nós e confirma que o reducer concatena `file_reviews`
+  - `test_llm.py`: `ChatOllama` instanciado com model/host/temperature corretos (settings mockado via `monkeypatch.setattr`)
+  - `test_prompts.py`: presença de `/no_think`, formatação de placeholders (`file_path`/`content`/`reviews_json`), tipos das mensagens
+- `uv run pytest -v` → **46/46 verde**
+
+### Commits
+- `dbb057a` feat: add graph state and llm factory
+- _hash do commit de docs preenchido no próximo commit_
+
+---
