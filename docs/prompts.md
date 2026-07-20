@@ -266,6 +266,9 @@ Todo prompt do usuário é registrado aqui, na ordem cronológica.
 - `uv run pytest -v` → **61/61 verde** (55 anteriores + 4 de graph + 2 de cli)
 
 ### Commits
-- _a preencher após commit_
+- `c8ee155` feat: wire langgraph flow
+- `79a62b7` feat: add typer cli
+- `333db9b` docs: add README with usage
+- `691d5e5` docs: mark T6-T8 done and register prompt 009
 
 ---
