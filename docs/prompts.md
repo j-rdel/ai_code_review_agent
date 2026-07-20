@@ -120,6 +120,6 @@ Todo prompt do usuário é registrado aqui, na ordem cronológica.
 
 ### Commits
 - `ee3e7c4` chore: bootstrap uv project
-- _hash do commit de docs preenchido no próximo commit_
+- `538198a` docs: mark T1 done and register prompt 004
 
 ---
