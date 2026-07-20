@@ -1,0 +1,25 @@
+[project]
+name = "ai-code-review-agent"
+version = "0.1.0"
+description = "LangGraph-based agent that reviews Python code changes and produces a Markdown report."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "langchain-ollama>=1.1.0",
+    "langgraph>=1.2.9",
+    "pydantic>=2.13.4",
+    "typer>=0.27.0",
+]
+
+[project.scripts]
+review = "ai_code_review_agent.cli:app"
+
+[build-system]
+requires = ["uv_build>=0.11.29,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-mock>=3.15.1",
+]
