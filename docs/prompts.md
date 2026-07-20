@@ -148,6 +148,6 @@ Todo prompt do usuário é registrado aqui, na ordem cronológica.
 
 ### Commits
 - `9501bf1` feat: add pydantic schemas for review output
-- _hash do commit de docs preenchido no próximo commit_
+- `e9039cf` docs: mark T2 done and register prompt 005
 
 ---
