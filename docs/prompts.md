@@ -234,3 +234,38 @@ Todo prompt do usuário é registrado aqui, na ordem cronológica.
 - `9483cb2` docs: mark T5 done and register prompt 008
 
 ---
+
+## 009 — Implementar T6, T7 e T8 (graph, CLI, README)
+
+**Data:** 2026-07-20
+
+**Prompt:**
+> implemente t6, t7 e t8
+
+### Implementação
+
+**T6 — `graph.py`:**
+- `route_files(state)` como conditional edge: retorna `list[Send]` (um por arquivo) OU string `"aggregate_summary"` quando não há arquivos (curto-circuito p/ evitar deadlock em `add_conditional_edges` com lista vazia).
+- `build_graph()` monta o `StateGraph` com edges: `START → detect_changes → load_files → (fan-out) → review_file → aggregate_summary → generate_report → END`. `add_conditional_edges("load_files", route_files, ["review_file", "aggregate_summary"])` declara ambos destinos.
+- Ajuste secundário em `aggregate_summary.py`: `state.get("file_reviews") or []` (tolera caminho sem arquivos, onde `file_reviews` nunca é preenchido).
+- Migrado `from langgraph.constants import Send` → `from langgraph.types import Send` (V1 depreca o primeiro).
+- `tests/test_graph.py`: (1) `route_files` unit tests, (2) end-to-end com git real + LLMs mockados (fanout de 2 arquivos, checa reducer), (3) end-to-end sem alterações Python (checa curto-circuito).
+
+**T7 — `cli.py`:**
+- Typer app com `@app.callback(invoke_without_command=True)` — permite `review --repo . ...` sem exigir subcomando.
+- Opções: `--repo`/`-r` (default `.`), `--base`/`-b`, `--head`/`-H`, `--out`/`-o` — defaults dos options vêm de `settings`. `--repo` valida existência de diretório via `exists=True, file_okay=False`.
+- Entrypoint `review = "ai_code_review_agent.cli:app"` já registrado em T1.
+- Imprime `Reviewing X — base..head`, `Reviewed N file(s).`, `Report written: <path>`.
+- `tests/test_cli.py`: (1) `--help` lista todas as opções, (2) execução real via `CliRunner` com LLMs mockados, valida exit code, mensagens e arquivo gerado.
+- Validado manualmente: `uv run review --help` funciona.
+- Não executado com Ollama real (não disponível neste ambiente); wiring validado pelos testes.
+
+**T8 — `README.md`:**
+- Descrição, requisitos (Python 3.12+, Ollama + `qwen3:8b`), tabela de env vars, instalação (`uv sync`), uso (`uv run review ...`), tabela de opções, explicação passo-a-passo do fluxo, exemplo de relatório em Markdown, seção Development (`uv run pytest`), links para `docs/architecture.md`, `docs/prompts.md`, `docs/tasks.md`.
+
+- `uv run pytest -v` → **61/61 verde** (55 anteriores + 4 de graph + 2 de cli)
+
+### Commits
+- _a preencher após commit_
+
+---

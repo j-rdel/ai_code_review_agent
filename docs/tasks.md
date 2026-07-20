@@ -52,24 +52,25 @@ Fonte: [architecture.md § 8](./architecture.md#8-roadmap-de-implementação-ord
 - [x] `tests/test_nodes.py` cobrindo os 5 nós (git real nos determinísticos, LLM mockado nos LLM)
 - Ajuste em `state.py`: adicionado campo opcional `output_dir` (input do CLI em T7)
 
-## T6 — `feat: wire langgraph flow`
-- [ ] `src/ai_code_review_agent/graph.py`
-- [ ] `build_graph() -> CompiledGraph`
-- [ ] Fan-out por arquivo via `Send` API (`route_files`)
-- [ ] Fan-in automático via reducer `operator.add` em `file_reviews`
-- [ ] `tests/test_graph.py` — smoke test end-to-end com LLM mockado
+## T6 — `feat: wire langgraph flow` ✅
+- [x] `src/ai_code_review_agent/graph.py`
+- [x] `build_graph() -> CompiledGraph`
+- [x] Fan-out por arquivo via `Send` API (`route_files`)
+- [x] Fan-in automático via reducer `operator.add` em `file_reviews`
+- [x] Curto-circuito: se `file_contents` vazio, `route_files` retorna `"aggregate_summary"` (sem review)
+- [x] `tests/test_graph.py` — smoke test end-to-end + caminho sem alterações
 
-## T7 — `feat: add typer cli`
-- [ ] `src/ai_code_review_agent/cli.py`
-- [ ] Opções: `--repo`, `--base`, `--head`, `--out`
-- [ ] Registrar entrypoint `review` no `pyproject.toml`
-- [ ] Executar `uv run review` de ponta a ponta em um repo real
+## T7 — `feat: add typer cli` ✅
+- [x] `src/ai_code_review_agent/cli.py`
+- [x] Opções: `--repo`, `--base`, `--head`, `--out`
+- [x] Entrypoint `review` já registrado em `pyproject.toml` (T1)
+- [x] Validado `uv run review --help`; teste `test_cli.py` executa a CLI fim-a-fim com LLM mockado
 
-## T8 — `docs: add README with usage`
-- [ ] Criar `README.md` com:
-  - [ ] Descrição do projeto
-  - [ ] Requisitos (Python 3.12+, Ollama com `qwen3:8b`)
-  - [ ] Instalação (`uv sync`)
-  - [ ] Uso (`uv run review --repo . --base main --head HEAD`)
-  - [ ] Exemplo de relatório
-  - [ ] Link para `docs/architecture.md`
+## T8 — `docs: add README with usage` ✅
+- [x] Criar `README.md` com:
+  - [x] Descrição do projeto
+  - [x] Requisitos (Python 3.12+, Ollama com `qwen3:8b`)
+  - [x] Instalação (`uv sync`)
+  - [x] Uso (`uv run review --repo . --base main --head HEAD`)
+  - [x] Exemplo de relatório
+  - [x] Link para `docs/architecture.md`
