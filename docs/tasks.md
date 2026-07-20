@@ -16,12 +16,12 @@ Fonte: [architecture.md § 8](./architecture.md#8-roadmap-de-implementação-ord
 - [x] Criar `.python-version`
 - [x] Rodar `uv sync` e verificar `uv.lock`
 
-## T2 — `feat: add pydantic schemas for review output`
-- [ ] Criar `src/ai_code_review_agent/models.py`
-- [ ] Definir `Issue` (category, severity, line?, description, suggestion)
-- [ ] Definir `FileReview` (file_path, overall_score, summary, issues, strengths)
-- [ ] Definir `RepoSummary` (overall_assessment, total_issues_by_severity, top_priorities, recommendations)
-- [ ] Adicionar `tests/test_models.py` cobrindo validações essenciais
+## T2 — `feat: add pydantic schemas for review output` ✅
+- [x] Criar `src/ai_code_review_agent/models.py`
+- [x] Definir `Issue` (category, severity, line?, description, suggestion)
+- [x] Definir `FileReview` (file_path, overall_score, summary, issues, strengths)
+- [x] Definir `RepoSummary` (overall_assessment, total_issues_by_severity, top_priorities, recommendations)
+- [x] Adicionar `tests/test_models.py` cobrindo validações essenciais
 
 ## T3 — `feat: add git and report tools`
 - [ ] Criar `src/ai_code_review_agent/tools/__init__.py`

@@ -123,3 +123,31 @@ Todo prompt do usuário é registrado aqui, na ordem cronológica.
 - `538198a` docs: mark T1 done and register prompt 004
 
 ---
+
+## 005 — Implementar T2 (schemas Pydantic)
+
+**Data:** 2026-07-20
+
+**Prompt:**
+> implemente T2
+
+### Implementação
+- Criado `src/ai_code_review_agent/models.py` com:
+  - Aliases `IssueCategory` e `Severity` como `Literal` (dão enum claro no JSON schema para structured output)
+  - `Issue` — `category`, `severity`, `line` (opcional, `ge=1`), `description`, `suggestion`; todos os campos com `Field(description=...)` para orientar o LLM
+  - `FileReview` — `file_path`, `overall_score` (`ge=0, le=10`), `summary`, `issues`, `strengths`
+  - `SeverityCounts` — sub-modelo com contadores `low/medium/high/critical` (não-negativos)
+  - `RepoSummary` — `overall_assessment`, `total_issues_by_severity: SeverityCounts`, `top_priorities`, `recommendations`
+- Criado `tests/__init__.py` e `tests/test_models.py` cobrindo:
+  - `Issue`: validação de category/severity, `line` opcional e positivo
+  - `FileReview`: defaults de lista, limites de score
+  - `SeverityCounts`: defaults e rejeição de negativos
+  - `RepoSummary`: defaults e campos populados
+- `uv run pytest -v` → 13/13 verde
+- T2 marcada como `[x]` em `docs/tasks.md`
+
+### Commits
+- `9501bf1` feat: add pydantic schemas for review output
+- _hash do commit de docs preenchido no próximo commit_
+
+---
