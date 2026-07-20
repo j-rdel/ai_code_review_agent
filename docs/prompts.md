@@ -231,6 +231,6 @@ Todo prompt do usuário é registrado aqui, na ordem cronológica.
 
 ### Commits
 - `f4fba63` feat: add nodes
-- _hash do commit de docs preenchido no próximo commit_
+- `9483cb2` docs: mark T5 done and register prompt 008
 
 ---
