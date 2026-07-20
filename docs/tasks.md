@@ -23,16 +23,16 @@ Fonte: [architecture.md § 8](./architecture.md#8-roadmap-de-implementação-ord
 - [x] Definir `RepoSummary` (overall_assessment, total_issues_by_severity, top_priorities, recommendations)
 - [x] Adicionar `tests/test_models.py` cobrindo validações essenciais
 
-## T3 — `feat: add git and report tools`
-- [ ] Criar `src/ai_code_review_agent/tools/__init__.py`
-- [ ] `tools/git_tools.py`:
-  - [ ] `list_changed_python_files(repo_path, base_ref, head_ref)`
-  - [ ] `read_file_at_ref(repo_path, path, ref)`
-  - [ ] `get_repo_name(repo_path)`
-- [ ] `tools/report_writer.py`:
-  - [ ] `render_markdown(state)`
-  - [ ] `write_report(markdown, repo_name, out_dir)`
-- [ ] `tests/test_git_tools.py` e `tests/test_report_writer.py`
+## T3 — `feat: add git and report tools` ✅
+- [x] Criar `src/ai_code_review_agent/tools/__init__.py`
+- [x] `tools/git_tools.py`:
+  - [x] `list_changed_python_files(repo_path, base_ref, head_ref)`
+  - [x] `read_file_at_ref(repo_path, path, ref)`
+  - [x] `get_repo_name(repo_path)`
+- [x] `tools/report_writer.py`:
+  - [x] `render_markdown(...)` — assinatura com kwargs explícitos (`repo_name`, `base_ref`, `head_ref`, `file_reviews`, `repo_summary`) em vez de `GraphState` para permitir teste isolado; o nó `generate_report` (T5) faz o destructuring
+  - [x] `write_report(markdown, repo_name, out_dir)`
+- [x] `tests/test_git_tools.py` e `tests/test_report_writer.py`
 
 ## T4 — `feat: add graph state and llm factory`
 - [ ] `src/ai_code_review_agent/config.py` — settings (modelo, host Ollama, defaults)

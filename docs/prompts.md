@@ -151,3 +151,32 @@ Todo prompt do usuário é registrado aqui, na ordem cronológica.
 - `e9039cf` docs: mark T2 done and register prompt 005
 
 ---
+
+## 006 — Implementar T3 (git tools e report writer)
+
+**Data:** 2026-07-20
+
+**Prompt:**
+> implemente T3
+
+### Implementação
+- Criado `src/ai_code_review_agent/tools/__init__.py`
+- Criado `src/ai_code_review_agent/tools/git_tools.py`:
+  - Helper interno `_run_git()` que encapsula `subprocess.run` (sem shell, sem escaping)
+  - `list_changed_python_files()` usa `git diff --name-only --diff-filter=ACMRT base..head -- '*.py'` (exclui deleções)
+  - `read_file_at_ref()` usa `git show ref:path`
+  - `get_repo_name()` tenta `remote.origin.url` (strip `.git`, aceita HTTPS/SSH), fallback para nome do diretório
+- Criado `src/ai_code_review_agent/tools/report_writer.py`:
+  - `render_markdown(*, repo_name, base_ref, head_ref, file_reviews, repo_summary)` — assinatura com kwargs explícitos (desvio consciente do `state: GraphState` na arquitetura) para permitir teste isolado sem depender de T4
+  - Seções renderizadas: header com metadados, Overall Assessment, tabela de severidade, Top priorities, Recommendations, per-file review (score, summary, issues formatados como `[SEVERITY] (category, line N)`, strengths). Seções opcionais são omitidas se vazias.
+  - `write_report()` cria `out_dir` se preciso, grava `<repo>_<YYYYMMDD-HHMMSS>.md`, retorna path absoluto
+- Testes:
+  - `tests/test_git_tools.py` — usa `tmp_path` para criar repositórios git reais (init/config/commits) e valida os 3 helpers, incluindo exclusão de deleções, leitura de versões históricas e todas as formas de remote URL
+  - `tests/test_report_writer.py` — valida seções renderizadas, formatação de severidade, omissão de seções vazias e escrita/criação de diretório
+- `uv run pytest -v` → **30/30 verde**
+
+### Commits
+- `b724753` feat: add git and report tools
+- _hash do commit de docs preenchido no próximo commit_
+
+---
