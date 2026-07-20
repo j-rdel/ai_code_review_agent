@@ -11,7 +11,7 @@ from ai_code_review_agent.state import GraphState
 
 
 def aggregate_summary(state: GraphState) -> dict:
-    reviews = state["file_reviews"]
+    reviews = state.get("file_reviews") or []
     reviews_json = json.dumps(
         [r.model_dump() for r in reviews], indent=2, ensure_ascii=False
     )
