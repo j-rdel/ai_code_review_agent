@@ -23,6 +23,7 @@ class GraphState(TypedDict, total=False):
     repo_path: str
     base_ref: str
     head_ref: str
+    output_dir: str  # where the report is written; falls back to settings
 
     # discovery
     repo_name: str
