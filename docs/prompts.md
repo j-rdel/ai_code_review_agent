@@ -64,7 +64,7 @@ Todo prompt do usuário é registrado aqui, na ordem cronológica.
 - Criado este `docs/prompts.md` com o histórico de prompts (001 e 002).
 
 ### Commits
-- _a preencher após commit_
+- `b84c841` docs: add architecture, prompts registry and tasks roadmap
 
 ---
 
@@ -95,6 +95,7 @@ Todo prompt do usuário é registrado aqui, na ordem cronológica.
 - Commit e push da estrutura inicial de docs
 
 ### Commits
-- _a preencher após commit_
+- `b84c841` docs: add architecture, prompts registry and tasks roadmap
+- _hash do backfill preenchido no próximo commit_
 
 ---
